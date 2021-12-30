@@ -19,10 +19,10 @@ namespace EccomerceApi.Models
         public virtual Brand Brand { get; set; }
         public string OtherBrand { get; set; }
         public int? Quantity { get; set; }
-        public int? Price { get; set; }
-        public int? CostPrice { get; set; }
+        public double? Price { get; set; }
+        public double? CostPrice { get; set; }
         public bool IsDiscount { get; set; }
-        public int? DiscountPrice { get; set; }
+        public double? DiscountPrice { get; set; }
         public string ImageName { get; set; }
         public string ImagePath { get; set; }
         public string Code { get; set; }
@@ -40,5 +40,6 @@ namespace EccomerceApi.Models
         public virtual ICollection<ProductReview> ProductReviews { get; set; }
         public virtual ICollection<ProductCategory> ProductCategories { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

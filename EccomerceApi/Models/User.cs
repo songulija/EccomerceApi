@@ -18,5 +18,6 @@ namespace EccomerceApi.Models
         public string PhoneNumber { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
