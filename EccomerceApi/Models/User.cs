@@ -17,5 +17,6 @@ namespace EccomerceApi.Models
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }
