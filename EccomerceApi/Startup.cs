@@ -1,3 +1,4 @@
+using EccomerceApi.Configuration;
 using EccomerceApi.IRepository;
 using EccomerceApi.Models;
 using EccomerceApi.Repository;
@@ -41,7 +42,9 @@ namespace EccomerceApi
                    .AllowAnyMethod()
                    .AllowAnyHeader());
             });
-
+            // Add autoMapper. For type providing MapperInitializer that i created in Configurations
+            services.AddAutoMapper(typeof(MapperInitilizer));
+            
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddSwaggerGen(c =>
