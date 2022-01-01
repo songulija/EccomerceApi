@@ -18,8 +18,8 @@ namespace EccomerceApi.Models
         public int? BrandId { get; set; }
         public virtual Brand Brand { get; set; }
         public string OtherBrand { get; set; }
-        public int? Quantity { get; set; }
-        public double? Price { get; set; }
+        public int Quantity { get; set; }
+        public double Price { get; set; }
         public double? CostPrice { get; set; }
         public bool IsDiscount { get; set; }
         public double? DiscountPrice { get; set; }
