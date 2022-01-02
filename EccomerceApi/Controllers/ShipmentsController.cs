@@ -14,13 +14,14 @@ namespace EccomerceApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PaymentsController : ControllerBase
+    public class ShipmentsController : ControllerBase
     {
+        //initilize iunitofwork
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILogger<PaymentsController> _logger;
+        private readonly ILogger<ShipmentsController> _logger;
 
-        public PaymentsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<PaymentsController> logger)
+        public ShipmentsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<ShipmentsController> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -30,51 +31,51 @@ namespace EccomerceApi.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetPayments()
+        public async Task<IActionResult> GetShipments()
         {
-            var payments = await _unitOfWork.Payments.GetAll();
-            var results = _mapper.Map<IList<PaymentDTO>>(payments);
+            var shipments = await _unitOfWork.Shipments.GetAll();
+            var results = _mapper.Map<IList<ShipmentDTO>>(shipments);
             return Ok(results);
         }
-        [HttpGet("{id:int}",Name = "GetPayment")]
+        [HttpGet("{id:int}", Name = "GetShipment")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetPayment(int id)
+        public async Task<IActionResult> GetShipment(int id)
         {
-            var payment = await _unitOfWork.Payments.Get(p => p.Id == id);
-            var results = _mapper.Map<PaymentDTO>(payment);
-            return Ok(results);
-        }
-        [HttpGet("order/{id:int}")]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetPaymentByOrder(int id)
-        {
-            var payment = await _unitOfWork.Payments.Get(p => p.OrderId == id);
-            var results = _mapper.Map<PaymentDTO>(payment);
+            var shipment = await _unitOfWork.Shipments.Get(s => s.Id == id);
+            var results = _mapper.Map<ShipmentDTO>(shipment);
             return Ok(results);
         }
 
+        [HttpGet("order/{id:int}"]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetShipmentByOrder(int id)
+        {
+            var shipment = await _unitOfWork.Shipments.Get(s => s.OrderId == id);
+            var results = _mapper.Map<ShipmentDTO>(shipment);
+            return Ok(results);
+        }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreatePayment([FromBody] CreatePaymentDTO paymentDTO)
+        public async Task<IActionResult> CreateShipment([FromBody] CreateShipmentDTO shipmentDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(CreatePayment)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateShipment)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var payment = _mapper.Map<Payment>(paymentDTO);
-            await _unitOfWork.Payments.Insert(payment);
+            var shipment = _mapper.Map<Shipment>(shipmentDTO);
+            await _unitOfWork.Shipments.Insert(shipment);
             await _unitOfWork.Save();
-            //call getCartItem and provide id and obj
-            return CreatedAtRoute("GetPayment", new { id = payment.Id }, payment);
+            //call getShipment and provide id and obj
+            return CreatedAtRoute("GetShipment", new { id = shipment.Id }, shipment);
         }
         /// <summary>
-        /// Check if valid, check if exist. Then add dto values to payment obj
+        /// Check if valid, check if exist. Then add dto values to shipment obj
         /// </summary>
         /// <param name="id"></param>
         /// <param name="orderDTO"></param>
@@ -83,22 +84,22 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> UpdatePayment(int id, [FromBody] UpdatePaymentDTO paymentDTO)
+        public async Task<IActionResult> UpdateShipment(int id, [FromBody] UpdateShipmentDTO shipmentDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdatePayment)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateShipment)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var payment = await _unitOfWork.Payments.Get(b => b.Id == id);
-            if (payment == null)
+            var shipment = await _unitOfWork.Shipments.Get(b => b.Id == id);
+            if (shipment == null)
             {
-                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdatePayment)}");
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateShipment)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            // add paymentDTO values to payment
-            _mapper.Map(paymentDTO, payment);
-            _unitOfWork.Payments.Update(payment);
+            // add shipmentDTO values to shipment
+            _mapper.Map(shipmentDTO, shipment);
+            _unitOfWork.Shipments.Update(shipment);
             await _unitOfWork.Save();
             return NoContent();
         }
@@ -107,15 +108,15 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeletePayment(int id)
+        public async Task<IActionResult> DeleteShipment(int id)
         {
-            var payment = await _unitOfWork.Payments.Get(b => b.Id == id);
-            if (payment== null)
+            var shipment = await _unitOfWork.Shipments.Get(b => b.Id == id);
+            if (shipment == null)
             {
-                _logger.LogError($"Invalid DELETE attempt in {nameof(DeletePayment)}");
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteShipment)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            await _unitOfWork.Payments.Delete(id);
+            await _unitOfWork.Shipments.Delete(id);
             await _unitOfWork.Save();
             return NoContent();
         }
