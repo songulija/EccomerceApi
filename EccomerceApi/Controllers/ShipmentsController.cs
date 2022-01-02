@@ -47,7 +47,7 @@ namespace EccomerceApi.Controllers
             return Ok(results);
         }
 
-        [HttpGet("order/{id:int}"]
+        [HttpGet("order/{id:int}")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetShipmentByOrder(int id)
