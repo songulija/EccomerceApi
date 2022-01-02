@@ -14,85 +14,82 @@ namespace EccomerceApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CartItemsController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILogger<CartItemsController> _logger;
+        private readonly ILogger<CategoriesController> _logger;
 
-        public CartItemsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CartItemsController> logger)
+        public CategoriesController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CategoriesController> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = logger;
         }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetCartItems()
+        public async Task<IActionResult> GetCategories()
         {
-            var cartItems = await _unitOfWork.CartItems.GetAll();
-            var results = _mapper.Map<IList<CartItemDTO>>(cartItems);
-            return Ok(results);
-        }
-        [HttpGet("{id:int}", Name = "GetCartItem")]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetCartItem(int id)
-        {
-            var cartItem = await _unitOfWork.CartItems.Get(c => c.Id == id);
-            var results = _mapper.Map<CartItemDTO>(cartItem);
+            var categories = await _unitOfWork.Categories.GetAll();
+            var results = _mapper.Map<IList<Category>>(categories);
             return Ok(results);
         }
 
-        /// <summary>
-        /// check if cartItems model is valid. then insert and save
-        /// </summary>
-        /// <param name="CreateCartItemDTO"></param>
-        /// <returns></returns>
+        [HttpGet("{id:int}", Name = "GetCategory")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetCategory()
+        {
+            var category = await _unitOfWork.Categories.GetAll();
+            var results = _mapper.Map<Category>(category);
+            return Ok(results);
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateCartItem([FromBody] CreateCartItemDTO cartItemDTO)
+        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDTO categoryDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateCartItem)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateCategory)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var cartItem = _mapper.Map<CartItem>(cartItemDTO);
-            await _unitOfWork.CartItems.Insert(cartItem);
+            var category = _mapper.Map<Category>(categoryDTO);
+            await _unitOfWork.Categories.Insert(category);
             await _unitOfWork.Save();
             //call getCartItem and provide id and obj
-            return CreatedAtRoute("GetCartItem", new { id = cartItem.Id }, cartItem);
+            return CreatedAtRoute("GetCategory", new { id = category.Id }, category);
         }
         /// <summary>
         /// Check if valid, check if exist. Then add dto values to cart obj
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="cartItemDTO"></param>
+        /// <param name="categoryDTO"></param>
         /// <returns></returns>
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> UpdateCartItem(int id, [FromBody] UpdateCartItemDTO cartItemDTO)
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] UpdateCategoryDTO categoryDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateCartItem)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateCategory)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var cartItem = await _unitOfWork.CartItems.Get(b => b.Id == id);
-            if (cartItem == null)
+            var category = await _unitOfWork.Categories.Get(b => b.Id == id);
+            if (category == null)
             {
-                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateCartItem)}");
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateCategory)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
             // add brandDTO values to brand
-            _mapper.Map(cartItemDTO, cartItem);
-            _unitOfWork.CartItems.Update(cartItem);
+            _mapper.Map(categoryDTO, category);
+            _unitOfWork.Categories.Update(category);
             await _unitOfWork.Save();
             return NoContent();
         }
@@ -101,15 +98,15 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteCartItem(int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
-            var cartItem = await _unitOfWork.CartItems.Get(b => b.Id == id);
-            if (cartItem == null)
+            var category = await _unitOfWork.Categories.Get(b => b.Id == id);
+            if (category == null)
             {
-                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteCartItem)}");
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteCategory)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            await _unitOfWork.CartItems.Delete(id);
+            await _unitOfWork.Categories.Delete(id);
             await _unitOfWork.Save();
             return NoContent();
         }
