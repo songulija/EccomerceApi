@@ -14,95 +14,91 @@ namespace EccomerceApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CartsController : ControllerBase
+    public class CommentsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILogger<CartsController> _logger;
+        private readonly ILogger<CommentsController> _logger;
 
-        public CartsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CartsController> logger)
+        public CommentsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CommentsController> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = logger;
         }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetCarts()
+        public async Task<IActionResult> GetComments()
         {
-            var carts = await _unitOfWork.Carts.GetAll();
-            var results = _mapper.Map<IList<CartDTO>>(carts);
+            var comments = await _unitOfWork.Comments.GetAll();
+            var results = _mapper.Map<IList<CommentDTO>>(comments);
             return Ok(results);
         }
-        [HttpGet("{id:int}",Name = "GetCart")]
+        [HttpGet("product/{id:int}")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetCart(int id)
+        public async Task<IActionResult> GetProductComments(int id)
         {
-            var cart = await _unitOfWork.Carts.Get(c => c.Id == id, includeProperties: "CartItems");
-            var results = _mapper.Map<CartDTO>(cart);
+            var comments = await _unitOfWork.Comments.GetAll(c => c.ProductId == id);
+            var results = _mapper.Map<IList<CommentDTO>>(comments);
             return Ok(results);
         }
 
-        [HttpGet("user/{id:int}")]
+        [HttpGet("{id:int}",Name = "GetComment")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetUserCart(int id)
+        public async Task<IActionResult> GetComment(int id)
         {
-            var cart = await _unitOfWork.Carts.Get(c => c.UserId == id);
-            var results = _mapper.Map<CartDTO>(cart);
+            var comment = await _unitOfWork.Comments.Get(c => c.Id == id);
+            var results = _mapper.Map<CommentDTO>(comment);
             return Ok(results);
         }
 
-        /// <summary>
-        /// check if cart model is valid. then insert and save
-        /// </summary>
-        /// <param name="cartDTO"></param>
-        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateCart([FromBody] CreateCartDTO cartDTO)
+        public async Task<IActionResult> CreateComment([FromBody] CreateCommentDTO commentDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateCart)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateComment)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var cart = _mapper.Map<Cart>(cartDTO);
-            await _unitOfWork.Carts.Insert(cart);
+            var comment = _mapper.Map<Comment>(commentDTO);
+            await _unitOfWork.Comments.Insert(comment);
             await _unitOfWork.Save();
-            //call getCart and provide id and obj
-            return CreatedAtRoute("GetCart", new { id = cart.Id }, cart);
+            //call getCartItem and provide id and obj
+            return CreatedAtRoute("GetComment", new { id = comment.Id }, comment);
         }
         /// <summary>
-        /// Check if valid, check if exist. Then add dto values to cart obj
+        /// Check if valid, check if exist. Then add dto values to comment obj
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="cartDTO"></param>
+        /// <param name="commentDTO"></param>
         /// <returns></returns>
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> UpdateCart(int id, [FromBody] UpdateCartDTO cartDTO)
+        public async Task<IActionResult> UpdateComment(int id, [FromBody] UpdateCommentDTO commentDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateCart)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateComment)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var cart = await _unitOfWork.Carts.Get(b => b.Id == id);
-            if (cart == null)
+            var comment = await _unitOfWork.Comments.Get(b => b.Id == id);
+            if (comment == null)
             {
-                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateCart)}");
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateComment)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            // add brandDTO values to brand
-            _mapper.Map(cartDTO, cart);
-            _unitOfWork.Carts.Update(cart);
+            // add commentDTO values to comment
+            _mapper.Map(commentDTO, comment);
+            _unitOfWork.Comments.Update(comment);
             await _unitOfWork.Save();
             return NoContent();
         }
@@ -111,15 +107,15 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteCart(int id)
+        public async Task<IActionResult> DeleteComment(int id)
         {
-            var cart = await _unitOfWork.Carts.Get(b => b.Id == id);
-            if (cart == null)
+            var comment = await _unitOfWork.Comments.Get(b => b.Id == id);
+            if (comment == null)
             {
-                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteCart)}");
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteComment)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            await _unitOfWork.Carts.Delete(id);
+            await _unitOfWork.Comments.Delete(id);
             await _unitOfWork.Save();
             return NoContent();
         }

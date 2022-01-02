@@ -45,6 +45,16 @@ namespace EccomerceApi.Controllers
             return Ok(results);
         }
 
+        [HttpGet("cart/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetCartItemsByCart(int id)
+        {
+            var cartItem = await _unitOfWork.CartItems.GetAll(c => c.CartId == id);
+            var results = _mapper.Map<CartItemDTO>(cartItem);
+            return Ok(results);
+        }
+
         /// <summary>
         /// check if cartItems model is valid. then insert and save
         /// </summary>
