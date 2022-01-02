@@ -14,55 +14,59 @@ namespace EccomerceApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class OrdersController : ControllerBase
+    public class OrderItemsController : ControllerBase
     {
+        //initilizing IUnitOfWork
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILogger<OrdersController> _logger;
+        private readonly ILogger<OrderItemsController> _logger;
 
-        public OrdersController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<OrdersController> logger)
+        public OrderItemsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<OrderItemsController> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _logger = logger;
         }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetOrders()
+        public async Task<IActionResult> GetOrderItems()
         {
-            var orders = await _unitOfWork.Orders.GetAll();
-            var results = _mapper.Map<IList<OrderDTO>>(orders);
+            var orderItems = await _unitOfWork.OrderItems.GetAll();
+            var results = _mapper.Map<IList<OrderItemDTO>>(orderItems);
             return Ok(results);
         }
-        [HttpGet("{id:int}", Name = "GetOrder")]
+
+        [HttpGet("{id:int}",Name = "GetOrderItem")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetOrder(int id)
+        public async Task<IActionResult> GetOrderItem(int id)
         {
-            var order = await _unitOfWork.Orders.Get(c => c.Id == id);
-            var results = _mapper.Map<OrderDTO>(order);
+            var orderItem = await _unitOfWork.OrderItems.Get(o => o.Id == id);
+            var results = _mapper.Map<OrderItemDTO>(orderItem);
             return Ok(results);
         }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDTO orderDTO)
+        public async Task<IActionResult> CreateOrderItem([FromBody] CreateOrderItemDTO orderItemDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateOrder)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateOrderItem)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var order = _mapper.Map<Order>(orderDTO);
-            await _unitOfWork.Orders.Insert(order);
+            var orderItem= _mapper.Map<OrderItem>(orderItemDTO);
+            await _unitOfWork.OrderItems.Insert(orderItem);
             await _unitOfWork.Save();
             //call getCartItem and provide id and obj
-            return CreatedAtRoute("GetOrder", new { id = order.Id }, order);
+            return CreatedAtRoute("GetOrderItem", new { id = orderItem.Id }, orderItem);
         }
         /// <summary>
-        /// Check if valid, check if exist. Then add dto values to order obj
+        /// Check if valid, check if exist. Then add dto values to orderItem obj
         /// </summary>
         /// <param name="id"></param>
         /// <param name="orderDTO"></param>
@@ -71,22 +75,22 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> UpdateOrder(int id, [FromBody] UpdateOrderDTO orderDTO)
+        public async Task<IActionResult> UpdateOrderItem(int id, [FromBody] UpdateOrderItemDTO orderItemDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateOrder)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateOrderItem)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var order = await _unitOfWork.Orders.Get(b => b.Id == id);
-            if (order == null)
+            var orderItem = await _unitOfWork.OrderItems.Get(b => b.Id == id);
+            if (orderItem == null)
             {
-                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateOrder)}");
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateOrderItem)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            // add commentDTO values to comment
-            _mapper.Map(orderDTO, order);
-            _unitOfWork.Orders.Update(order);
+            // add orderITemDTO values to orderItem
+            _mapper.Map(orderItemDTO, orderItem);
+            _unitOfWork.OrderItems.Update(orderItem);
             await _unitOfWork.Save();
             return NoContent();
         }
@@ -95,17 +99,18 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteOrder(int id)
+        public async Task<IActionResult> DeleteOrderItem(int id)
         {
-            var order = await _unitOfWork.Orders.Get(b => b.Id == id);
-            if (order == null)
+            var orderItem = await _unitOfWork.OrderItems.Get(b => b.Id == id);
+            if (orderItem== null)
             {
-                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteOrder)}");
+                _logger.LogError($"Invalid DELETE attempt in {nameof(OrderItemDTO)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            await _unitOfWork.Orders.Delete(id);
+            await _unitOfWork.OrderItems.Delete(id);
             await _unitOfWork.Save();
             return NoContent();
         }
+
     }
 }
