@@ -14,13 +14,13 @@ namespace EccomerceApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CartsController : ControllerBase
+    public class CartItemsController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILogger<CartsController> _logger;
+        private readonly ILogger<CartItemsController> _logger;
 
-        public CartsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CartsController> logger)
+        public CartItemsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CartItemsController> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -29,43 +29,43 @@ namespace EccomerceApi.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetCarts()
+        public async Task<IActionResult> GetCartItems()
         {
-            var carts = await _unitOfWork.Carts.GetAll();
-            var results = _mapper.Map<IList<CartDTO>>(carts);
+            var cartItems = await _unitOfWork.CartItems.GetAll();
+            var results = _mapper.Map<IList<CartItemDTO>>(cartItems);
             return Ok(results);
         }
-        [HttpGet("{id:int}",Name = "GetCart")]
+        [HttpGet("{id:int}", Name = "GetCartItem")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetCart(int id)
+        public async Task<IActionResult> GetCartItem(int id)
         {
-            var cart = await _unitOfWork.Carts.Get(c => c.Id == id);
-            var results = _mapper.Map<CartDTO>(cart);
+            var cartItem = await _unitOfWork.CartItems.Get(c => c.Id == id);
+            var results = _mapper.Map<CartItemDTO>(cartItem);
             return Ok(results);
         }
 
         /// <summary>
-        /// check if cart model is valid. then insert and save
+        /// check if cartItems model is valid. then insert and save
         /// </summary>
-        /// <param name="cartDTO"></param>
+        /// <param name="CreateCartItemDTO"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateCart([FromBody] CreateCartDTO cartDTO)
+        public async Task<IActionResult> CreateCartItem([FromBody] CreateCartItemDTO cartItemDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateCart)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateCartItem)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var cart = _mapper.Map<Cart>(cartDTO);
-            await _unitOfWork.Carts.Insert(cart);
+            var cartItem = _mapper.Map<CartItem>(cartItemDTO);
+            await _unitOfWork.CartItems.Insert(cartItem);
             await _unitOfWork.Save();
-            //call getCart and provide id and obj
-            return CreatedAtRoute("GetCart", new { id = cart.Id }, cart);
+            //call getCartItem and provide id and obj
+            return CreatedAtRoute("GetCartItem", new { id = cartItem.Id }, cartItem);
         }
         /// <summary>
         /// Check if valid, check if exist. Then add dto values to cart obj
@@ -77,22 +77,22 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> UpdateCart(int id, [FromBody] UpdateCartDTO cartDTO)
+        public async Task<IActionResult> UpdateCartItem(int id, [FromBody] UpdateCartItemDTO cartItemDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateCart)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateCartItem)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var cart = await _unitOfWork.Carts.Get(b => b.Id == id);
-            if (cart == null)
+            var cartItem = await _unitOfWork.CartItems.Get(b => b.Id == id);
+            if (cartItem == null)
             {
-                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateCart)}");
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateCartItem)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
             // add brandDTO values to brand
-            _mapper.Map(cartDTO, cart);
-            _unitOfWork.Carts.Update(cart);
+            _mapper.Map(cartItemDTO, cartItem);
+            _unitOfWork.CartItems.Update(cartItem);
             await _unitOfWork.Save();
             return NoContent();
         }
@@ -101,15 +101,15 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteCart(int id)
+        public async Task<IActionResult> DeleteCartItem(int id)
         {
-            var cart = await _unitOfWork.Carts.Get(b => b.Id == id);
-            if (cart == null)
+            var cartItem = await _unitOfWork.CartItems.Get(b => b.Id == id);
+            if (cartItem == null)
             {
-                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteCart)}");
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteCartItem)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            await _unitOfWork.Carts.Delete(id);
+            await _unitOfWork.CartItems.Delete(id);
             await _unitOfWork.Save();
             return NoContent();
         }
