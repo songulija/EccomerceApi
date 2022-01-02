@@ -14,14 +14,14 @@ namespace EccomerceApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductReviewsController : ControllerBase
+    public class ProductTagsController : ControllerBase
     {
-        //initilize iunitofwork 
+        //initilize iunitofwork
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILogger<ProductReviewsController> _logger;
+        private readonly ILogger<ProductTagsController> _logger;
 
-        public ProductReviewsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<ProductReviewsController> logger)
+        public ProductTagsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<ProductTagsController> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -31,52 +31,52 @@ namespace EccomerceApi.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetProductReviews()
+        public async Task<IActionResult> GetProductTags()
         {
-            var productReviews = await _unitOfWork.ProductReviews.GetAll();
-            var results = _mapper.Map<IList<ProductReviewDTO>>(productReviews);
+            var productTags = await _unitOfWork.ProductTags.GetAll();
+            var results = _mapper.Map<IList<ProductTagDTO>>(productTags);
             return Ok(results);
         }
-        [HttpGet("{id:int}", Name = "GetProductReview")]
+
+        [HttpGet("{id:int}",Name = "GetProductTag")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetProductReview(int id)
+        public async Task<IActionResult> GetProductTag(int id)
         {
-            var productReview = await _unitOfWork.ProductReviews.Get(p => p.Id == id);
-            var results = _mapper.Map<ProductReviewDTO>(productReview);
+            var productTag = await _unitOfWork.ProductTags.Get(p => p.Id == id);
+            var results = _mapper.Map<ProductTagDTO>(productTag);
             return Ok(results);
         }
 
         [HttpGet("product/{id:int}")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetProductReviewByProduct(int id)
+        public async Task<IActionResult> GetProductTagsByProduct(int id)
         {
-            var productReviews = await _unitOfWork.ProductReviews.GetAll(p => p.ProductId == id);
-            var results = _mapper.Map<IList<ProductReviewDTO>>(productReviews);
+            var productTags = await _unitOfWork.ProductTags.GetAll(p => p.ProductId == id);
+            var results = _mapper.Map<IList<ProductTagDTO>>(productTags);
             return Ok(results);
         }
-
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateProductReview([FromBody] CreateProductReviewDTO productReviewDTO)
+        public async Task<IActionResult> CreateProductTag([FromBody] CreateProductTagDTO productTagDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateProductReview)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(CreateProductTag)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var productReview = _mapper.Map<ProductReview>(productReviewDTO);
-            await _unitOfWork.ProductReviews.Insert(productReview);
+            var productTag = _mapper.Map<ProductTag>(productTagDTO);
+            await _unitOfWork.ProductTags.Insert(productTag);
             await _unitOfWork.Save();
-            //call getProduct and provide id and obj
-            return CreatedAtRoute("GetProductReview", new { id = productReview.Id }, productReview);
+            //call getProductTag and provide id and obj
+            return CreatedAtRoute("GetProductTag", new { id = productTag.Id }, productTag);
         }
         /// <summary>
-        /// Check if valid, check if exist. Then add dto values to productReview obj
+        /// Check if valid, check if exist. Then add dto values to productTag obj
         /// </summary>
         /// <param name="id"></param>
         /// <param name="productReviewDTO"></param>
@@ -85,22 +85,22 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> UpdateProductReview(int id, [FromBody] UpdateProductReviewDTO productReviewDTO)
+        public async Task<IActionResult> UpdateProductTag(int id, [FromBody] UpdateProductTagDTO productTagDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateProductReview)}");
+                _logger.LogError($"Invalid CREATE attempt in {nameof(UpdateProductTag)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var productReview = await _unitOfWork.ProductReviews.Get(b => b.Id == id);
-            if (productReview == null)
+            var productTag = await _unitOfWork.ProductTags.Get(b => b.Id == id);
+            if (productTag == null)
             {
-                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateProductReview)}");
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateProductTag)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            // add productReviewDTO values to productReview
-            _mapper.Map(productReviewDTO, productReview);
-            _unitOfWork.ProductReviews.Update(productReview);
+            // add productTagDTO values to productTag 
+            _mapper.Map(productTagDTO, productTag);
+            _unitOfWork.ProductTags.Update(productTag);
             await _unitOfWork.Save();
             return NoContent();
         }
@@ -109,15 +109,15 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteProductReview(int id)
+        public async Task<IActionResult> DeleteProductTag(int id)
         {
-            var productReview = await _unitOfWork.ProductReviews.Get(b => b.Id == id);
-            if (productReview == null)
+            var productTag = await _unitOfWork.ProductTags.Get(b => b.Id == id);
+            if (productTag == null)
             {
-                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteProductReview)}");
+                _logger.LogError($"Invalid DELETE attempt in {nameof(DeleteProductTag)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            await _unitOfWork.ProductReviews.Delete(id);
+            await _unitOfWork.ProductTags.Delete(id);
             await _unitOfWork.Save();
             return NoContent();
         }
