@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EccomerceApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20211230212656_createdDB")]
+    [Migration("20220101221939_createdDB")]
     partial class createdDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -286,10 +286,10 @@ namespace EccomerceApi.Migrations
                     b.Property<string>("PackagingBoxCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Price")
+                    b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int?>("Quantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
