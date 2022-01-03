@@ -33,6 +33,9 @@ namespace EccomerceApi
         {
             services.AddDbContext<DatabaseContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("lukasConnection")));
+
+            services.AddAuthentication();
+            services.ConfigureJWT(Configuration);
             // adding Cors policy. so user from other networks could access our API. just adding policy with name
             //basically allowing here anybody and everybody to access this API
             services.AddCors(o =>
@@ -42,6 +45,7 @@ namespace EccomerceApi
                    .AllowAnyMethod()
                    .AllowAnyHeader());
             });
+
             // Add autoMapper. For type providing MapperInitializer that i created in Configurations
             services.AddAutoMapper(typeof(MapperInitilizer));
             
@@ -62,9 +66,12 @@ namespace EccomerceApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EccomerceApi v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EccomerceApi v1"));
+            //addding exception handler from service extensions. to not write try catch all time
+            app.ConfigurExceptionHandler();
 
             app.UseHttpsRedirection();
 
@@ -73,6 +80,7 @@ namespace EccomerceApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
