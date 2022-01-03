@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
-using EccomerceApi.IRepository;
-using EccomerceApi.Models;
-using EccomerceApi.ModelsDTOs;
-using EccomerceApi.Services;
+using EcommerceCore.DTOs;
+using EcommerceCore.IRepository;
+using EcommerceCore.Services;
+using EcommerceData.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EccomerceApi.Controllers
@@ -55,7 +53,7 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterUser([FromBody]UserDTO userDTO)
+        public async Task<IActionResult> RegisterUser([FromBody] UserDTO userDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -73,7 +71,7 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
-        public async Task<IActionResult> LoginUser([FromBody]LoginUserDTO userDTO)
+        public async Task<IActionResult> LoginUser([FromBody] LoginUserDTO userDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -81,7 +79,7 @@ namespace EccomerceApi.Controllers
             }
             //check if user is invalid
             var isValid = await _authManager.ValidateUser(userDTO);
-            if(isValid == false)
+            if (isValid == false)
             {
                 return Unauthorized();
             }

@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using EccomerceApi.IRepository;
-using EccomerceApi.Models;
-using EccomerceApi.ModelsDTOs;
+using EcommerceCore.DTOs;
+using EcommerceCore.IRepository;
+using EcommerceData.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EccomerceApi.Controllers
@@ -40,7 +38,7 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProduct(int id)
         {
-            var product= await _unitOfWork.Products.Get(p => p.Id == id);
+            var product = await _unitOfWork.Products.Get(p => p.Id == id);
             var results = _mapper.Map<ProductDTO>(product);
             return Ok(results);
         }

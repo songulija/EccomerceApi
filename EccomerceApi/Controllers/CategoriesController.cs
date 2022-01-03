@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using EccomerceApi.IRepository;
-using EccomerceApi.Models;
-using EccomerceApi.ModelsDTOs;
+using EcommerceCore.DTOs;
+using EcommerceCore.IRepository;
+using EcommerceData.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EccomerceApi.Controllers
@@ -33,7 +31,7 @@ namespace EccomerceApi.Controllers
         public async Task<IActionResult> GetCategories()
         {
             var categories = await _unitOfWork.Categories.GetAll();
-            var results = _mapper.Map<IList<Category>>(categories);
+            var results = _mapper.Map<IList<CategoryDTO>>(categories);
             return Ok(results);
         }
 
@@ -43,7 +41,7 @@ namespace EccomerceApi.Controllers
         public async Task<IActionResult> GetCategory()
         {
             var category = await _unitOfWork.Categories.GetAll();
-            var results = _mapper.Map<Category>(category);
+            var results = _mapper.Map<CategoryDTO>(category);
             return Ok(results);
         }
 

@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using EccomerceApi.IRepository;
-using EccomerceApi.Models;
-using EccomerceApi.ModelsDTOs;
+using EcommerceCore.DTOs;
+using EcommerceCore.IRepository;
+using EcommerceData.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EccomerceApi.Controllers
@@ -36,7 +34,7 @@ namespace EccomerceApi.Controllers
             var results = _mapper.Map<IList<PaymentDTO>>(payments);
             return Ok(results);
         }
-        [HttpGet("{id:int}",Name = "GetPayment")]
+        [HttpGet("{id:int}", Name = "GetPayment")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetPayment(int id)
@@ -110,7 +108,7 @@ namespace EccomerceApi.Controllers
         public async Task<IActionResult> DeletePayment(int id)
         {
             var payment = await _unitOfWork.Payments.Get(b => b.Id == id);
-            if (payment== null)
+            if (payment == null)
             {
                 _logger.LogError($"Invalid DELETE attempt in {nameof(DeletePayment)}");
                 return BadRequest("Įvesti neteisingi duomenis");

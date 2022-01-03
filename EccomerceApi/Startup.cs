@@ -1,22 +1,15 @@
-using EccomerceApi.Configuration;
-using EccomerceApi.IRepository;
-using EccomerceApi.Models;
-using EccomerceApi.Repository;
-using EccomerceApi.Services;
+using EcommerceCore;
+using EcommerceCore.IRepository;
+using EcommerceCore.Repository;
+using EcommerceCore.Services;
+using EcommerceData.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EccomerceApi
 {
@@ -48,7 +41,7 @@ namespace EccomerceApi
             });
 
             // Add autoMapper. For type providing MapperInitializer that i created in Configurations
-            services.AddAutoMapper(typeof(MapperInitilizer));
+            services.ConfigureAutoMapper();
 
             //adding service IAuthManager(interface) and its implementation. so i can use it in whole project\
             services.AddTransient<IAuthManager, AuthManager>();

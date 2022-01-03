@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using EccomerceApi.IRepository;
-using EccomerceApi.Models;
-using EccomerceApi.ModelsDTOs;
+using EcommerceCore.DTOs;
+using EcommerceCore.IRepository;
+using EcommerceData.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EccomerceApi.Controllers
@@ -38,7 +36,7 @@ namespace EccomerceApi.Controllers
             return Ok(results);
         }
 
-        [HttpGet("{id:int}",Name = "GetProductTag")]
+        [HttpGet("{id:int}", Name = "GetProductTag")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProductTag(int id)

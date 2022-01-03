@@ -1,18 +1,16 @@
 ﻿using AutoMapper;
-using EccomerceApi.IRepository;
-using EccomerceApi.Models;
-using EccomerceApi.ModelsDTOs;
+using EcommerceCore.DTOs;
+using EcommerceCore.IRepository;
+using EcommerceData.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EccomerceApi.Controllers
 {
-    
+
     [ApiController]
     [Route("api/[controller]")]
     public class BrandsController : ControllerBase
@@ -55,7 +53,7 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateBrand([FromBody]CreateBrandDTO brandDTO)
+        public async Task<IActionResult> CreateBrand([FromBody] CreateBrandDTO brandDTO)
         {
             if (!ModelState.IsValid)
             {

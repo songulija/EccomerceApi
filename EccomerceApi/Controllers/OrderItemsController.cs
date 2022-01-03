@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
-using EccomerceApi.IRepository;
-using EccomerceApi.Models;
-using EccomerceApi.ModelsDTOs;
+using EcommerceCore.DTOs;
+using EcommerceCore.IRepository;
+using EcommerceData.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EccomerceApi.Controllers
@@ -38,7 +36,7 @@ namespace EccomerceApi.Controllers
             return Ok(results);
         }
 
-        [HttpGet("{id:int}",Name = "GetOrderItem")]
+        [HttpGet("{id:int}", Name = "GetOrderItem")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetOrderItem(int id)
@@ -59,7 +57,7 @@ namespace EccomerceApi.Controllers
                 _logger.LogError($"Invalid CREATE attempt in {nameof(CreateOrderItem)}");
                 return BadRequest("Įvesti neteisingi duomenis");
             }
-            var orderItem= _mapper.Map<OrderItem>(orderItemDTO);
+            var orderItem = _mapper.Map<OrderItem>(orderItemDTO);
             await _unitOfWork.OrderItems.Insert(orderItem);
             await _unitOfWork.Save();
             //call getCartItem and provide id and obj
@@ -102,7 +100,7 @@ namespace EccomerceApi.Controllers
         public async Task<IActionResult> DeleteOrderItem(int id)
         {
             var orderItem = await _unitOfWork.OrderItems.Get(b => b.Id == id);
-            if (orderItem== null)
+            if (orderItem == null)
             {
                 _logger.LogError($"Invalid DELETE attempt in {nameof(OrderItemDTO)}");
                 return BadRequest("Įvesti neteisingi duomenis");
