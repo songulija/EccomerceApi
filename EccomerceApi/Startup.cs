@@ -2,6 +2,7 @@ using EccomerceApi.Configuration;
 using EccomerceApi.IRepository;
 using EccomerceApi.Models;
 using EccomerceApi.Repository;
+using EccomerceApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -48,7 +49,9 @@ namespace EccomerceApi
 
             // Add autoMapper. For type providing MapperInitializer that i created in Configurations
             services.AddAutoMapper(typeof(MapperInitilizer));
-            
+
+            //adding service IAuthManager(interface) and its implementation. so i can use it in whole project\
+            services.AddTransient<IAuthManager, AuthManager>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddSwaggerGen(c =>
