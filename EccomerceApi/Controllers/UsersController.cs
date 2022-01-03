@@ -20,10 +20,10 @@ namespace EccomerceApi.Controllers
         //initilize IUnitOfWork
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly ILogger _logger;
+        private readonly ILogger<UsersController> _logger;
         private readonly IAuthManager _authManager;
 
-        public UsersController(IUnitOfWork unitOfWork, IMapper mapper, ILogger logger, IAuthManager authManager)
+        public UsersController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<UsersController> logger, IAuthManager authManager)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

@@ -380,6 +380,21 @@ namespace EccomerceApi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "UserTypes",
+                columns: new[] { "Id", "Title" },
+                values: new object[] { 1, "ADMINISTRATOR" });
+
+            migrationBuilder.InsertData(
+                table: "UserTypes",
+                columns: new[] { "Id", "Title" },
+                values: new object[] { 2, "USER" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "FirstName", "LastName", "Password", "PhoneNumber", "TypeId", "Username" },
+                values: new object[] { 1, "Lukas", "Songulija", "$2a$11$c1g.Naskog9WciFoJfEeZOGDEl/2AWhh/6RDiX.dgp7OFMBU92xcu", "860855183", 1, "admin" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_CartId",
                 table: "CartItems",

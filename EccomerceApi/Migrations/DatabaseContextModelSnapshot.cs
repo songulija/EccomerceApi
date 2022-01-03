@@ -465,6 +465,18 @@ namespace EccomerceApi.Migrations
                     b.HasIndex("TypeId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstName = "Lukas",
+                            LastName = "Songulija",
+                            Password = "$2a$11$c1g.Naskog9WciFoJfEeZOGDEl/2AWhh/6RDiX.dgp7OFMBU92xcu",
+                            PhoneNumber = "860855183",
+                            TypeId = 1,
+                            Username = "admin"
+                        });
                 });
 
             modelBuilder.Entity("EccomerceApi.Models.UserType", b =>
@@ -480,6 +492,18 @@ namespace EccomerceApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Title = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Title = "USER"
+                        });
                 });
 
             modelBuilder.Entity("EccomerceApi.Models.Cart", b =>
