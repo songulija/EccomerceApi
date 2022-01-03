@@ -35,6 +35,7 @@ namespace EccomerceApi.Configuration
 
             CreateMap<User, LoginUserDTO>().ReverseMap();
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, DisplayUserDTO>().ReverseMap();
 
             CreateMap<Cart, CreateCartDTO>().ReverseMap();
             CreateMap<Cart, UpdateCartDTO>().ReverseMap();
