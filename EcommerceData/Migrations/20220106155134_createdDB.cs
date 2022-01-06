@@ -393,7 +393,7 @@ namespace EcommerceData.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "FirstName", "LastName", "Password", "PhoneNumber", "TypeId", "Username" },
-                values: new object[] { 1, "Lukas", "Songulija", "$2a$11$00aPhfkxYTnjls6fPUgpTeyNY8Z8nYeVLAM1fPvYpn8SjMlEbCY6S", "860855183", 1, "admin" });
+                values: new object[] { 1, "Lukas", "Songulija", "$2a$11$L4wPW5Ivn8PQ2wpPuZ8UKuM1FOkET.Par8gDCvrcBkeEYk1nk3VFO", "860855183", 1, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_CartId",

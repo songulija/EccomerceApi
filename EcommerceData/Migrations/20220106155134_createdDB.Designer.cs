@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceData.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220103223021_createdDB")]
+    [Migration("20220106155134_createdDB")]
     partial class createdDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -474,7 +474,7 @@ namespace EcommerceData.Migrations
                             Id = 1,
                             FirstName = "Lukas",
                             LastName = "Songulija",
-                            Password = "$2a$11$00aPhfkxYTnjls6fPUgpTeyNY8Z8nYeVLAM1fPvYpn8SjMlEbCY6S",
+                            Password = "$2a$11$L4wPW5Ivn8PQ2wpPuZ8UKuM1FOkET.Par8gDCvrcBkeEYk1nk3VFO",
                             PhoneNumber = "860855183",
                             TypeId = 1,
                             Username = "admin"
