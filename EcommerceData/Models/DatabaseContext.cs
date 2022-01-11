@@ -35,6 +35,8 @@ namespace EcommerceData.Models
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new UserTypesConfiguration());
             builder.ApplyConfiguration(new UsersConfiguration());
+            builder.ApplyConfiguration(new BrandsConfiguration());
+            builder.ApplyConfiguration(new CategoriesConfiguration());
         }
     }
 }

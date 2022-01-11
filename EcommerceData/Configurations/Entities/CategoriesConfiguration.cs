@@ -238,6 +238,159 @@ namespace EcommerceData.Configurations.Entities
                      Id = 38,
                      Title = "Striukės berniukams",
                      ParentId = 30
+                 },
+                 new Category
+                 {
+                     Id = 39,
+                     Title = "Baldai ir namų interjeras"
+                 },
+                 new Category
+                 {
+                     Id = 40,
+                     Title = "Sportas, laisvalaikis, turizmas"
+                 },
+                 new Category
+                 {
+                     Id = 41,
+                     Title = "Kompiuterinė technika"
+                 },
+                 new Category
+                 {
+                     Id = 42,
+                     Title = "Svetainės baldai",
+                     ParentId = 39
+                 },
+                 new Category
+                 {
+                     Id = 43,
+                     Title = "Lauko baldai",
+                     ParentId = 39
+                 },
+                 new Category
+                 {
+                     Id = 44,
+                     Title = "Miegamojo baldai",
+                     ParentId = 39
+                 },
+                 new Category
+                 {
+                     Id = 45,
+                     Title = "Biuro baldai",
+                     ParentId = 39
+                 },
+                 new Category
+                 {
+                     Id = 46,
+                     Title = "Virtuvės baldai",
+                     ParentId = 39
+                 },
+                 new Category
+                 {
+                     Id = 47,
+                     Title = "Vaiko kambario baldai",
+                     ParentId = 39
+                 },
+                 new Category
+                 {
+                     Id = 48,
+                     Title = "Vonios kambario baldai",
+                     ParentId = 39
+                 },
+                 new Category
+                 {
+                     Id = 49,
+                     Title = "Kilimai, kilimėliai",
+                     ParentId = 39
+                 },
+                 new Category
+                 {
+                     Id = 50,
+                     Title = "Veidrodžiai",
+                     ParentId = 39
+                 },
+                 new Category
+                 {
+                     Id = 51,
+                     Title = "Treniruokliai, treniruočių įranga",
+                     ParentId = 40
+                 },
+                 new Category
+                 {
+                     Id = 52,
+                     Title = "Sporto prekės",
+                     ParentId = 40
+                 },
+                 new Category
+                 {
+                     Id = 53,
+                     Title = "Laisvalaikis",
+                     ParentId = 40
+                 },
+                 new Category
+                 {
+                     Id = 54,
+                     Title = "Dviračiai, paspirtukai, riedučiai, riedlentės",
+                     ParentId = 40
+                 },
+                 new Category
+                 {
+                     Id = 55,
+                     Title = "Turizmas",
+                     ParentId = 40
+                 },
+                 new Category
+                 {
+                     Id = 56,
+                     Title = "Žiemos sportas",
+                     ParentId = 40
+                 },
+                 new Category
+                 {
+                     Id = 57,
+                     Title = "Maisto papildai, preparatai, funkcinis maistas",
+                     ParentId = 40
+                 },
+                 new Category
+                 {
+                     Id = 58,
+                     Title = "Išoriniai kompiuterių aksesuarai",
+                     ParentId = 41
+                 },
+                 new Category
+                 {
+                     Id = 59,
+                     Title = "Nešiojami kompiuteriai, priedai",
+                     ParentId = 41
+                 },
+                 new Category
+                 {
+                     Id = 60,
+                     Title = "Planšetiniai kompiuteriai, el. skaityklės",
+                     ParentId = 41
+                 },
+                 new Category
+                 {
+                     Id = 61,
+                     Title = "Žaidimų kompiuteriai, priedai",
+                     ParentId = 41
+                 },
+                 new Category
+                 {
+                     Id = 62,
+                     Title = "Orgtechnika, priedai",
+                     ParentId = 41
+                 },
+                 new Category
+                 {
+                     Id = 63,
+                     Title = "Monitoriai kompiuteriams ir laikikliai",
+                     ParentId = 41
+                 },
+                 new Category
+                 {
+                     Id = 64,
+                     Title = "Duomenų laikmenos",
+                     ParentId = 41
                  }
             );
         }

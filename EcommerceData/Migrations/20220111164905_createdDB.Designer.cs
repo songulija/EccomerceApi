@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EcommerceData.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220106155134_createdDB")]
+    [Migration("20220111164905_createdDB")]
     partial class createdDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,53 @@ namespace EcommerceData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Title = "Adidas"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Title = "Armani"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Title = "Asics"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Title = "Cabba"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Title = "Calvin Klein"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Title = "Columbia"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Title = "Diesel"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Title = "H&M"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Title = "Zara"
+                        });
                 });
 
             modelBuilder.Entity("EcommerceData.Models.Cart", b =>
@@ -109,6 +156,393 @@ namespace EcommerceData.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "Kokybiški, stilingi ir madingi aksesuarai, apranga, avalynė moterims, vyrams bei vaikams Pigu.lt el. parduotuvės asortimente siūlomi itin palankiomis sąlygomis. Šios stiliaus detalės leidžia mums susikurti pageidaujamą įvaizdį ir būtent taip išreikšti save. Kokybiška apranga ir avalynė užtikrina komfortą net ir nepatogiose situacijose, o aksesuarai dar labiau pabrėžia mūsų asmenybę. Kuo daugiau skirtingų detalių turėsite, tuo daugiau unikalių derinių pavyks sukurti. Gausi jų įvairovė užtikrins, kad kiekvienam čia pavyks atrasti sau tinkamas įvaizdžio detales. Nesvarbu, ar ieškosite rūbų laisvalaikiui, patogių batų vaikams ar unikalių aksesuarų ypatingai progai, čia visuomet bus iš ko pasirinkti. Įsitikinkite tuo patys – apranga, avalynė ir aksesuarai bet kuriuo metu pasiekiami internetu! ",
+                            ParentId = 0,
+                            Title = "Apranga, avalynė aksesuarai"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ParentId = 1,
+                            Title = "Moterims"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ParentId = 1,
+                            Title = "Vyrams"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ParentId = 1,
+                            Title = "Vaikams"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ParentId = 2,
+                            Title = "Drabužiai moterims"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ParentId = 2,
+                            Title = "Avalynė moterims"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ParentId = 2,
+                            Title = "Apatinis trikotažas"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ParentId = 3,
+                            Title = "Vyriški drabužiai"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ParentId = 3,
+                            Title = "Avalynė vyrams"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ParentId = 3,
+                            Title = "Apatinis trikotažas vyrams"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ParentId = 5,
+                            Title = "Striukės moterims"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ParentId = 5,
+                            Title = "Suknelės"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ParentId = 5,
+                            Title = "Sportinė apranga moterims"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ParentId = 5,
+                            Title = "Megztiniai moterimis"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ParentId = 5,
+                            Title = "Kelnės moterims"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ParentId = 5,
+                            Title = "Džinsai moterims"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ParentId = 6,
+                            Title = "Šlepetės moterims"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ParentId = 6,
+                            Title = "Sportiniai bateliai"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ParentId = 6,
+                            Title = "Bateliai moterims"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ParentId = 6,
+                            Title = "Šlepetės moterims"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ParentId = 8,
+                            Title = "Vyriškos striukės"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ParentId = 8,
+                            Title = "Sportinė apranga vyrams"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ParentId = 8,
+                            Title = "Džemperiai vyrams"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            ParentId = 8,
+                            Title = "Džinsai vyrams"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            ParentId = 8,
+                            Title = "Vyriški marškinėliai"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            ParentId = 9,
+                            Title = "Vyriški batai"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            ParentId = 9,
+                            Title = "Kedai vyrams"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            ParentId = 9,
+                            Title = "Šlepetės vyrams"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            ParentId = 4,
+                            Title = "Drabužiai mergaitėms"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            ParentId = 4,
+                            Title = "Drabužiai berniukams"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            ParentId = 29,
+                            Title = "Megztiniai, blizonai, švarkai mergaitėms"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            ParentId = 29,
+                            Title = "Marškinėliai mergaitėms"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            ParentId = 29,
+                            Title = "Kelnės mergaitėms"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            ParentId = 29,
+                            Title = "Suknelės mergaitėms"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            ParentId = 30,
+                            Title = "Megztiniai, blizonai, švarkai berniukams"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            ParentId = 30,
+                            Title = "Kelnės berniukams"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            ParentId = 30,
+                            Title = "Marškinėliai berniukams"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            ParentId = 30,
+                            Title = "Striukės berniukams"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            ParentId = 0,
+                            Title = "Baldai ir namų interjeras"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            ParentId = 0,
+                            Title = "Sportas, laisvalaikis, turizmas"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            ParentId = 0,
+                            Title = "Kompiuterinė technika"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            ParentId = 39,
+                            Title = "Svetainės baldai"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            ParentId = 39,
+                            Title = "Lauko baldai"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            ParentId = 39,
+                            Title = "Miegamojo baldai"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            ParentId = 39,
+                            Title = "Biuro baldai"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            ParentId = 39,
+                            Title = "Virtuvės baldai"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            ParentId = 39,
+                            Title = "Vaiko kambario baldai"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            ParentId = 39,
+                            Title = "Vonios kambario baldai"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            ParentId = 39,
+                            Title = "Kilimai, kilimėliai"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            ParentId = 39,
+                            Title = "Veidrodžiai"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            ParentId = 40,
+                            Title = "Treniruokliai, treniruočių įranga"
+                        },
+                        new
+                        {
+                            Id = 52,
+                            ParentId = 40,
+                            Title = "Sporto prekės"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            ParentId = 40,
+                            Title = "Laisvalaikis"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            ParentId = 40,
+                            Title = "Dviračiai, paspirtukai, riedučiai, riedlentės"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            ParentId = 40,
+                            Title = "Turizmas"
+                        },
+                        new
+                        {
+                            Id = 56,
+                            ParentId = 40,
+                            Title = "Žiemos sportas"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            ParentId = 40,
+                            Title = "Maisto papildai, preparatai, funkcinis maistas"
+                        },
+                        new
+                        {
+                            Id = 58,
+                            ParentId = 41,
+                            Title = "Išoriniai kompiuterių aksesuarai"
+                        },
+                        new
+                        {
+                            Id = 59,
+                            ParentId = 41,
+                            Title = "Nešiojami kompiuteriai, priedai"
+                        },
+                        new
+                        {
+                            Id = 60,
+                            ParentId = 41,
+                            Title = "Planšetiniai kompiuteriai, el. skaityklės"
+                        },
+                        new
+                        {
+                            Id = 61,
+                            ParentId = 41,
+                            Title = "Žaidimų kompiuteriai, priedai"
+                        },
+                        new
+                        {
+                            Id = 62,
+                            ParentId = 41,
+                            Title = "Orgtechnika, priedai"
+                        },
+                        new
+                        {
+                            Id = 63,
+                            ParentId = 41,
+                            Title = "Monitoriai kompiuteriams ir laikikliai"
+                        },
+                        new
+                        {
+                            Id = 64,
+                            ParentId = 41,
+                            Title = "Duomenų laikmenos"
+                        });
                 });
 
             modelBuilder.Entity("EcommerceData.Models.Comment", b =>
@@ -474,7 +908,7 @@ namespace EcommerceData.Migrations
                             Id = 1,
                             FirstName = "Lukas",
                             LastName = "Songulija",
-                            Password = "$2a$11$L4wPW5Ivn8PQ2wpPuZ8UKuM1FOkET.Par8gDCvrcBkeEYk1nk3VFO",
+                            Password = "$2a$11$bmaPv6exjUzfp0BBpFY3juagLGyUDoYsLThhSclSiztKWfm9VAaKO",
                             PhoneNumber = "860855183",
                             TypeId = 1,
                             Username = "admin"

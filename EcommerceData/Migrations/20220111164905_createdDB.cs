@@ -381,19 +381,112 @@ namespace EcommerceData.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "UserTypes",
-                columns: new[] { "Id", "Title" },
-                values: new object[] { 1, "ADMINISTRATOR" });
+                table: "Brands",
+                columns: new[] { "Id", "MetaTitle", "Title" },
+                values: new object[,]
+                {
+                    { 1, null, "Adidas" },
+                    { 2, null, "Armani" },
+                    { 3, null, "Asics" },
+                    { 4, null, "Cabba" },
+                    { 5, null, "Calvin Klein" },
+                    { 6, null, "Columbia" },
+                    { 7, null, "Diesel" },
+                    { 8, null, "H&M" },
+                    { 9, null, "Zara" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Content", "MetaTitle", "ParentId", "Slug", "Title" },
+                values: new object[,]
+                {
+                    { 47, null, null, 39, null, "Vaiko kambario baldai" },
+                    { 46, null, null, 39, null, "Virtuvės baldai" },
+                    { 45, null, null, 39, null, "Biuro baldai" },
+                    { 44, null, null, 39, null, "Miegamojo baldai" },
+                    { 43, null, null, 39, null, "Lauko baldai" },
+                    { 42, null, null, 39, null, "Svetainės baldai" },
+                    { 37, null, null, 30, null, "Marškinėliai berniukams" },
+                    { 40, null, null, 0, null, "Sportas, laisvalaikis, turizmas" },
+                    { 39, null, null, 0, null, "Baldai ir namų interjeras" },
+                    { 38, null, null, 30, null, "Striukės berniukams" },
+                    { 48, null, null, 39, null, "Vonios kambario baldai" },
+                    { 36, null, null, 30, null, "Kelnės berniukams" },
+                    { 35, null, null, 30, null, "Megztiniai, blizonai, švarkai berniukams" },
+                    { 41, null, null, 0, null, "Kompiuterinė technika" },
+                    { 49, null, null, 39, null, "Kilimai, kilimėliai" },
+                    { 53, null, null, 40, null, "Laisvalaikis" },
+                    { 51, null, null, 40, null, "Treniruokliai, treniruočių įranga" },
+                    { 52, null, null, 40, null, "Sporto prekės" },
+                    { 34, null, null, 29, null, "Suknelės mergaitėms" },
+                    { 54, null, null, 40, null, "Dviračiai, paspirtukai, riedučiai, riedlentės" },
+                    { 55, null, null, 40, null, "Turizmas" },
+                    { 56, null, null, 40, null, "Žiemos sportas" },
+                    { 57, null, null, 40, null, "Maisto papildai, preparatai, funkcinis maistas" },
+                    { 58, null, null, 41, null, "Išoriniai kompiuterių aksesuarai" },
+                    { 59, null, null, 41, null, "Nešiojami kompiuteriai, priedai" },
+                    { 60, null, null, 41, null, "Planšetiniai kompiuteriai, el. skaityklės" },
+                    { 61, null, null, 41, null, "Žaidimų kompiuteriai, priedai" },
+                    { 62, null, null, 41, null, "Orgtechnika, priedai" },
+                    { 63, null, null, 41, null, "Monitoriai kompiuteriams ir laikikliai" },
+                    { 64, null, null, 41, null, "Duomenų laikmenos" },
+                    { 50, null, null, 39, null, "Veidrodžiai" },
+                    { 33, null, null, 29, null, "Kelnės mergaitėms" },
+                    { 29, null, null, 4, null, "Drabužiai mergaitėms" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Content", "MetaTitle", "ParentId", "Slug", "Title" },
+                values: new object[,]
+                {
+                    { 31, null, null, 29, null, "Megztiniai, blizonai, švarkai mergaitėms" },
+                    { 1, "Kokybiški, stilingi ir madingi aksesuarai, apranga, avalynė moterims, vyrams bei vaikams Pigu.lt el. parduotuvės asortimente siūlomi itin palankiomis sąlygomis. Šios stiliaus detalės leidžia mums susikurti pageidaujamą įvaizdį ir būtent taip išreikšti save. Kokybiška apranga ir avalynė užtikrina komfortą net ir nepatogiose situacijose, o aksesuarai dar labiau pabrėžia mūsų asmenybę. Kuo daugiau skirtingų detalių turėsite, tuo daugiau unikalių derinių pavyks sukurti. Gausi jų įvairovė užtikrins, kad kiekvienam čia pavyks atrasti sau tinkamas įvaizdžio detales. Nesvarbu, ar ieškosite rūbų laisvalaikiui, patogių batų vaikams ar unikalių aksesuarų ypatingai progai, čia visuomet bus iš ko pasirinkti. Įsitikinkite tuo patys – apranga, avalynė ir aksesuarai bet kuriuo metu pasiekiami internetu! ", null, 0, null, "Apranga, avalynė aksesuarai" },
+                    { 2, null, null, 1, null, "Moterims" },
+                    { 3, null, null, 1, null, "Vyrams" },
+                    { 4, null, null, 1, null, "Vaikams" },
+                    { 5, null, null, 2, null, "Drabužiai moterims" },
+                    { 6, null, null, 2, null, "Avalynė moterims" },
+                    { 7, null, null, 2, null, "Apatinis trikotažas" },
+                    { 8, null, null, 3, null, "Vyriški drabužiai" },
+                    { 9, null, null, 3, null, "Avalynė vyrams" },
+                    { 10, null, null, 3, null, "Apatinis trikotažas vyrams" },
+                    { 11, null, null, 5, null, "Striukės moterims" },
+                    { 12, null, null, 5, null, "Suknelės" },
+                    { 13, null, null, 5, null, "Sportinė apranga moterims" },
+                    { 14, null, null, 5, null, "Megztiniai moterimis" },
+                    { 32, null, null, 29, null, "Marškinėliai mergaitėms" },
+                    { 15, null, null, 5, null, "Kelnės moterims" },
+                    { 17, null, null, 6, null, "Šlepetės moterims" },
+                    { 18, null, null, 6, null, "Sportiniai bateliai" },
+                    { 19, null, null, 6, null, "Bateliai moterims" },
+                    { 20, null, null, 6, null, "Šlepetės moterims" },
+                    { 21, null, null, 8, null, "Vyriškos striukės" },
+                    { 22, null, null, 8, null, "Sportinė apranga vyrams" },
+                    { 23, null, null, 8, null, "Džemperiai vyrams" },
+                    { 24, null, null, 8, null, "Džinsai vyrams" },
+                    { 25, null, null, 8, null, "Vyriški marškinėliai" },
+                    { 26, null, null, 9, null, "Vyriški batai" },
+                    { 27, null, null, 9, null, "Kedai vyrams" },
+                    { 28, null, null, 9, null, "Šlepetės vyrams" },
+                    { 30, null, null, 4, null, "Drabužiai berniukams" },
+                    { 16, null, null, 5, null, "Džinsai moterims" }
+                });
 
             migrationBuilder.InsertData(
                 table: "UserTypes",
                 columns: new[] { "Id", "Title" },
-                values: new object[] { 2, "USER" });
+                values: new object[,]
+                {
+                    { 1, "ADMINISTRATOR" },
+                    { 2, "USER" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "FirstName", "LastName", "Password", "PhoneNumber", "TypeId", "Username" },
-                values: new object[] { 1, "Lukas", "Songulija", "$2a$11$L4wPW5Ivn8PQ2wpPuZ8UKuM1FOkET.Par8gDCvrcBkeEYk1nk3VFO", "860855183", 1, "admin" });
+                values: new object[] { 1, "Lukas", "Songulija", "$2a$11$bmaPv6exjUzfp0BBpFY3juagLGyUDoYsLThhSclSiztKWfm9VAaKO", "860855183", 1, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_CartId",
