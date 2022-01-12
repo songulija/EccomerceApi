@@ -58,7 +58,7 @@ namespace EccomerceApi.Controllers
             await _unitOfWork.Products.Insert(product);
             await _unitOfWork.Save();
             //call getProduct and provide id and obj
-            var createdProduct = await _unitOfWork.Products.Get(p => p.Id == product.Id);
+            var createdProduct = await _unitOfWork.Products.Get(p => p.Id == product.Id, includeProperties: "Brand");
             var result = _mapper.Map<ProductDTO>(createdProduct);
             return Ok(result);
         }
