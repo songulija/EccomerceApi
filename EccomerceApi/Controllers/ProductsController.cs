@@ -29,7 +29,7 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await _unitOfWork.Products.GetAll();
+            var products = await _unitOfWork.Products.GetAll(includeProperties: "Brand");
             var results = _mapper.Map<IList<ProductDTO>>(products);
             return Ok(results);
         }
@@ -38,14 +38,14 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetProduct(int id)
         {
-            var product = await _unitOfWork.Products.Get(p => p.Id == id);
+            var product = await _unitOfWork.Products.Get(p => p.Id == id, includeProperties: "Brand");
             var results = _mapper.Map<ProductDTO>(product);
             return Ok(results);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDTO productDTO)
         {
@@ -58,7 +58,9 @@ namespace EccomerceApi.Controllers
             await _unitOfWork.Products.Insert(product);
             await _unitOfWork.Save();
             //call getProduct and provide id and obj
-            return CreatedAtRoute("GetProduct", new { id = product.Id }, product);
+            var createdProduct = await _unitOfWork.Products.Get(p => p.Id == product.Id);
+            var result = _mapper.Map<ProductDTO>(createdProduct);
+            return Ok(result);
         }
         /// <summary>
         /// Check if valid, check if exist. Then add dto values to product obj

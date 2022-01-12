@@ -19,6 +19,6 @@ namespace EcommerceCore.DTOs
     public class PaymentDTO : CreatePaymentDTO
     {
         public int Id { get; set; }
-        public virtual OrderDTO Order { get; set; }
+        public OrderDTO Order { get; set; }
     }
 }

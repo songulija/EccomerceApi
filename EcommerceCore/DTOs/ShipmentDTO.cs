@@ -21,6 +21,6 @@ namespace EcommerceCore.DTOs
     public class ShipmentDTO : CreateShipmentDTO
     {
         public int Id { get; set; }
-        public virtual OrderDTO Order { get; set; }
+        public OrderDTO Order { get; set; }
     }
 }
