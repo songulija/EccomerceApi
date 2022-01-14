@@ -89,5 +89,44 @@ namespace EccomerceApi.Controllers
             // authManager method CrateToken which will return Token
             return Accepted(new { Token = token });
         }
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateUser(int id,[FromBody]UpdateUserDTO userDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateUser)}");
+                return BadRequest("Submited invalid data");
+            }
+            var user = await _unitOfWork.Users.Get(u => u.Id == id);
+            if(user == null)
+            {
+                _logger.LogError($"Invalid UPDATE attempt in {nameof(UpdateUser)}");
+                return BadRequest("Submited invalid data");
+            }
+            _mapper.Map(userDTO, user);
+            _unitOfWork.Users.Update(user);
+            await _unitOfWork.Save();
+            return NoContent();
+        }
+
+        [HttpDelete("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _unitOfWork.Users.Get(o => o.Id == id);
+            if(user == null)
+            {
+                _logger.LogError($"Invalid DELETE attemptin {nameof(DeleteUser)}");
+                return BadRequest("Submited invalid data");
+            }
+            await _unitOfWork.Users.Delete(id);
+            await _unitOfWork.Save();
+            return NoContent();
+        }
     }
 }

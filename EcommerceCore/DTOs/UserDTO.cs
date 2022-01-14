@@ -38,4 +38,12 @@ namespace EcommerceCore.DTOs
         public virtual IList<CommentDTO> Comments { get; set; }
         public virtual IList<OrderDTO> Orders { get; set; }
     }
+
+
+    public class UpdateUserDTO
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+    }
 }
