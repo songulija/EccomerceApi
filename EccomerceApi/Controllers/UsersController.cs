@@ -60,11 +60,48 @@ namespace EccomerceApi.Controllers
                 _logger.LogError($"Invalid REGISTER attempt in {nameof(RegisterUser)}");
                 return BadRequest("Submited invalid data");
             }
-            var user = _mapper.Map<User>(userDTO);
+            var user = new User
+            {
+                Username = userDTO.Username,
+                Password = BCrypt.Net.BCrypt.HashPassword(userDTO.Password),
+                PhoneNumber = userDTO.PhoneNumber,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                TypeId = 2
+            };
+            /*var user = _mapper.Map<User>(userDTO);
+            user.TypeId = 2;*/
             //create user
             await _unitOfWork.Users.Insert(user);
             await _unitOfWork.Save();
-            return Accepted(user);
+            var result = _mapper.Map<DisplayUserDTO>(user);
+            return Accepted(result);
+        }
+        [HttpPost("create")]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateUser([FromBody] UserDTO userDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError($"Invalid REGISTER attempt in {nameof(CreateUser)}");
+                return BadRequest("Submited invalid data");
+            }
+            var user = new User
+            {
+                Username = userDTO.Username,
+                Password = BCrypt.Net.BCrypt.HashPassword(userDTO.Password),
+                PhoneNumber = userDTO.PhoneNumber,
+                FirstName = userDTO.FirstName,
+                LastName = userDTO.LastName,
+                TypeId = userDTO.TypeId
+            };
+            //create user
+            await _unitOfWork.Users.Insert(user);
+            await _unitOfWork.Save();
+            var result = _mapper.Map<DisplayUserDTO>(user);
+            return Accepted(result);
         }
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
