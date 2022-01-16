@@ -15,8 +15,8 @@ namespace EcommerceCore.Repository
         private IGenericRepository<Category> _categories;
         private IGenericRepository<Product> _products;
         private IGenericRepository<User> _users;
-        private IGenericRepository<Cart> _carts;
-        private IGenericRepository<CartItem> _cartItems;
+/*        private IGenericRepository<Cart> _carts;
+        private IGenericRepository<CartItem> _cartItems;*/
         private IGenericRepository<Comment> _comments;
         private IGenericRepository<Order> _orders;
         private IGenericRepository<OrderItem> _orderItems;
@@ -38,8 +38,8 @@ namespace EcommerceCore.Repository
         public IGenericRepository<Category> Categories => _categories ??= new GenericRepository<Category>(_context);
         public IGenericRepository<Product> Products => _products ??= new GenericRepository<Product>(_context);
         public IGenericRepository<User> Users => _users ??= new GenericRepository<User>(_context);
-        public IGenericRepository<Cart> Carts => _carts ??= new GenericRepository<Cart>(_context);
-        public IGenericRepository<CartItem> CartItems => _cartItems ??= new GenericRepository<CartItem>(_context);
+/*        public IGenericRepository<Cart> Carts => _carts ??= new GenericRepository<Cart>(_context);
+        public IGenericRepository<CartItem> CartItems => _cartItems ??= new GenericRepository<CartItem>(_context);*/
         public IGenericRepository<Comment> Comments => _comments ??= new GenericRepository<Comment>(_context);
         public IGenericRepository<Order> Orders => _orders ??= new GenericRepository<Order>(_context);
         public IGenericRepository<OrderItem> OrderItems => _orderItems ??= new GenericRepository<OrderItem>(_context);

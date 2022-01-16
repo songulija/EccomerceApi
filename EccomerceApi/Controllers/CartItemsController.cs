@@ -29,11 +29,11 @@ namespace EccomerceApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetCartItems()
         {
-            var cartItems = await _unitOfWork.CartItems.GetAll();
-            var results = _mapper.Map<IList<CartItemDTO>>(cartItems);
-            return Ok(results);
+           /* var cartItems = await _unitOfWork.CartItems.GetAll();
+            var results = _mapper.Map<IList<CartItemDTO>>(cartItems);*/
+            return Ok("Hello");
         }
-        [HttpGet("{id:int}", Name = "GetCartItem")]
+        /*[HttpGet("{id:int}", Name = "GetCartItem")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetCartItem(int id)
@@ -120,6 +120,6 @@ namespace EccomerceApi.Controllers
             await _unitOfWork.CartItems.Delete(id);
             await _unitOfWork.Save();
             return NoContent();
-        }
+        }*/
     }
 }

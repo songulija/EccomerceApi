@@ -46,7 +46,7 @@ namespace EcommerceCore.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
-        public virtual IList<CartDTO> Carts { get; set; }
+        /*public virtual IList<CartDTO> Carts { get; set; }*/
         public virtual IList<CommentDTO> Comments { get; set; }
         public virtual IList<OrderDTO> Orders { get; set; }
     }

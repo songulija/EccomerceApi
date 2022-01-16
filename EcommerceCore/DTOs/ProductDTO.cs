@@ -41,7 +41,7 @@ namespace EcommerceCore.DTOs
         public int Id { get; set; }
         public BrandDTO Brand { get; set; }
         public virtual IList<ProductTagDTO> ProductTags { get; set; }
-        public virtual IList<CartItemDTO> CartItems { get; set; }
+       /* public virtual IList<CartItemDTO> CartItems { get; set; }*/
         public virtual IList<ProductReviewDTO> ProductReviews { get; set; }
         public virtual IList<ProductCategoryDTO> ProductCategories { get; set; }
         public virtual IList<CommentDTO> Comments { get; set; }

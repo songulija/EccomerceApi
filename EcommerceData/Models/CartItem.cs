@@ -9,13 +9,13 @@ namespace EcommerceData.Models
 {
     public class CartItem : BaseModel
     {
-        [ForeignKey(nameof(Cart))]
+        /*[ForeignKey(nameof(Cart))]
         public int CartId { get; set; }
         public virtual Cart Cart { get; set; }
         [ForeignKey(nameof(Product))]
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
         public int Quantity { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; }*/
     }
 }

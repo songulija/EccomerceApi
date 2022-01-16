@@ -36,7 +36,7 @@ namespace EcommerceData.Models
         public int? WeightNetto { get; set; }
         public string PackagingBoxCode { get; set; }
         public virtual ICollection<ProductTag> ProductTags { get; set; }
-        public virtual ICollection<CartItem> CartItems { get; set; }
+/*        public virtual ICollection<CartItem> CartItems { get; set; }*/
         public virtual ICollection<ProductReview> ProductReviews { get; set; }
         public virtual ICollection<ProductCategory> ProductCategories { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

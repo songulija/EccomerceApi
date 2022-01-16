@@ -5,8 +5,8 @@ namespace EcommerceCore.DTOs
 {
     public class CreateCartDTO
     {
-        [Required]
-        public int UserId { get; set; }
+        /*[Required]
+        public int UserId { get; set; }*/
     }
     public class UpdateCartDTO : CreateCartDTO
     {
@@ -14,8 +14,8 @@ namespace EcommerceCore.DTOs
     public class CartDTO : CreateCartDTO
     {
         public int Id { get; set; }
-        public UserDTO User { get; set; }
-        public IList<CartItemDTO> CartItems { get; set; }
+       /* public UserDTO User { get; set; }
+        public IList<CartItemDTO> CartItems { get; set; }*/
     }
 
 }

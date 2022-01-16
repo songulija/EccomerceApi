@@ -9,9 +9,9 @@ namespace EcommerceData.Models
 {
     public class Cart : BaseModel
     {
-        [ForeignKey(nameof(User))]
+        /*[ForeignKey(nameof(User))]
         public int UserId { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<CartItem> CartItems {get;set;}
+        public virtual ICollection<CartItem> CartItems {get;set;}*/
     }
 }

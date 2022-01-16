@@ -84,51 +84,6 @@ namespace EcommerceData.Migrations
                         });
                 });
 
-            modelBuilder.Entity("EcommerceData.Models.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("EcommerceData.Models.CartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("CartItems");
-                });
-
             modelBuilder.Entity("EcommerceData.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -906,7 +861,7 @@ namespace EcommerceData.Migrations
                             Id = 1,
                             FirstName = "Lukas",
                             LastName = "Songulija",
-                            Password = "$2a$11$bmaPv6exjUzfp0BBpFY3juagLGyUDoYsLThhSclSiztKWfm9VAaKO",
+                            Password = "$2a$11$bJmRUsTpO1BcBXPsBquLRe/PMS5HUY/ZqOIjC263csyGgQxjzJ212",
                             PhoneNumber = "860855183",
                             TypeId = 1,
                             Username = "admin"
@@ -938,36 +893,6 @@ namespace EcommerceData.Migrations
                             Id = 2,
                             Title = "USER"
                         });
-                });
-
-            modelBuilder.Entity("EcommerceData.Models.Cart", b =>
-                {
-                    b.HasOne("EcommerceData.Models.User", "User")
-                        .WithMany("Carts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("EcommerceData.Models.CartItem", b =>
-                {
-                    b.HasOne("EcommerceData.Models.Cart", "Cart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EcommerceData.Models.Product", "Product")
-                        .WithMany("CartItems")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("EcommerceData.Models.Comment", b =>
@@ -1115,11 +1040,6 @@ namespace EcommerceData.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("EcommerceData.Models.Cart", b =>
-                {
-                    b.Navigation("CartItems");
-                });
-
             modelBuilder.Entity("EcommerceData.Models.Category", b =>
                 {
                     b.Navigation("ProductCategories");
@@ -1136,8 +1056,6 @@ namespace EcommerceData.Migrations
 
             modelBuilder.Entity("EcommerceData.Models.Product", b =>
                 {
-                    b.Navigation("CartItems");
-
                     b.Navigation("Comments");
 
                     b.Navigation("OrderItems");
@@ -1156,8 +1074,6 @@ namespace EcommerceData.Migrations
 
             modelBuilder.Entity("EcommerceData.Models.User", b =>
                 {
-                    b.Navigation("Carts");
-
                     b.Navigation("Comments");
 
                     b.Navigation("Orders");

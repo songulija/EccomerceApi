@@ -12,8 +12,8 @@ namespace EcommerceCore.IRepository
         IGenericRepository<Category> Categories { get; }
         IGenericRepository<Product> Products { get; }
         IGenericRepository<User> Users { get; }
-        IGenericRepository<Cart> Carts { get; }
-        IGenericRepository<CartItem> CartItems { get; }
+/*        IGenericRepository<Cart> Carts { get; }
+        IGenericRepository<CartItem> CartItems { get; }*/
         IGenericRepository<Comment> Comments { get; }
         IGenericRepository<Order> Orders { get; }
         IGenericRepository<OrderItem> OrderItems { get; }
